@@ -1,8 +1,19 @@
-import { View, Text } from 'react-native';
+import { useState } from 'react';
+import { View, Text, Alert } from 'react-native';
 import { styles } from './styles';
 import { Ingredients } from '@/components/ingredients';
+import { Selected } from '@/components/selected';
 
 export default function Index() {
+  const [selected, setSelected] = useState<string[]>([]);
+
+  function handleclearSelected() {
+    Alert.alert('Limpar', 'Deseja limpar tudo?', [
+      { text: 'Não', style: 'cancel' },
+      { text: 'Sim', style: 'default', onPress: () => setSelected([]) },
+    ]);
+  }
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>
@@ -11,7 +22,11 @@ export default function Index() {
       </Text>
       <Text style={styles.message}>Descubra receitas baseadas nos produtos que você escolheu</Text>
 
-      <Ingredients />
+      <Ingredients selected={selected} setSelected={setSelected} />
+
+      {selected.length > 0 && (
+        <Selected quantity={selected.length} onClear={() => handleclearSelected()} onSearch={() => {}} />
+      )}
     </View>
   );
 }

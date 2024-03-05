@@ -1,17 +1,19 @@
 import { ScrollView } from 'react-native';
 import { styles } from './styles';
 import { Ingredient } from '../ingredient';
-import { useState } from 'react';
 
-export function Ingredients() {
-  const [selected, setSelected] = useState<string[]>([]);
+type IngredientsProps = {
+  selected: string[];
+  setSelected: React.Dispatch<React.SetStateAction<string[]>>;
+};
 
+export function Ingredients({ selected, setSelected }: IngredientsProps) {
   function handleToggleSelected(value: string) {
     if (selected.includes(value)) {
-      return setSelected((state) => state.filter((item) => item !== value));
+      return setSelected((state: any[]) => state.filter((item) => item !== value));
     }
 
-    setSelected((state) => [...state, value]);
+    setSelected((state: string[]) => [...state, value]);
   }
 
   return (
