@@ -5,7 +5,7 @@ async function findByRecipeId(id: string) {
     .from("preparations")
     .select()
     .eq("recipe_id", id)
-    .returns<PreparationsResponse[]>()
+    .returns<PreparationResponse[]>()
 
   return data ?? []
 }

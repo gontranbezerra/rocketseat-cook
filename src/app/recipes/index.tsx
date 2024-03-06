@@ -8,7 +8,9 @@ import { services } from '@/services';
 import { Ingredients } from '@/components/ingredients';
 
 export default function Recipes() {
+  const [isLoading, setIsLoading] = useState(true);
   const [ingredients, setIngredients] = useState<IngredientResponse[]>([]);
+  const [recipes, setRecipes] = useState<RecipeResponse[]>([]);
 
   const params = useLocalSearchParams<{ selected: string }>();
   const ingredientIds = params.selected.split(',');
@@ -16,9 +18,12 @@ export default function Recipes() {
   useEffect(() => {
     services.ingredients.findByIds(ingredientIds).then(setIngredients);
   }, []);
-  
+
   useEffect(() => {
-    services.ingredients.findByIds(ingredientIds).then(setIngredients);
+    services.recipes
+      .findByIngredientsIds(ingredientIds)
+      .then((response) => setRecipes(response))
+      .finally(() => setIsLoading(false));
   }, []);
 
   return (
@@ -32,18 +37,28 @@ export default function Recipes() {
       <Ingredients igredients={ingredients} />
 
       <FlatList
-        data={['1']}
-        keyExtractor={(item) => item}
-        renderItem={() => (
+        data={recipes}
+        keyExtractor={(item) => item.id}
+        renderItem={({ item }) => (
           <Recipe
-            recipe={{
-              name: 'Omelete',
-              image:
-                'https://www.kitano.com.br/wp-content/uploads/2019/07/SSP_1993-Omelete-de-pizza-mussarela-ore%E2%95%A0%C3%BCgano-e-tomate.jpg',
-              minutes: 10,
-            }}
+            // recipe={{
+            //   name: item.name,
+            //   image: item.image,
+            //   minutes: item.minutes,
+            // }}
+            recipe={item}
           />
         )}
+        style={styles.recipes}
+        contentContainerStyle={styles.recipesContent}
+        showsVerticalScrollIndicator={false}
+        columnWrapperStyle={{ gap: 16 }}
+        numColumns={2}
+        // ListEmptyComponent={() => (
+        //   <Text style={styles.empty}>
+        //     Nenhuma receita encontrada. Escolha outros ingredientes.
+        //   </Text>
+        // )}
       />
     </View>
   );

@@ -16,4 +16,7 @@ export const styles = StyleSheet.create({
     fontFamily: theme.fonts.family.bold,
     marginTop: 22,
   },
+  recipes: {},
+  recipesContent: {},
+  empty: {},
 });
