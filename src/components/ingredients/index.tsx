@@ -7,7 +7,7 @@ type IngredientsProps = {
   setSelected: React.Dispatch<React.SetStateAction<string[]>>;
 };
 
-export function Ingredients({ selected, setSelected }: IngredientsProps) {
+export function Ingredients({ selected, setSelected }: Readonly<IngredientsProps>) {
   function handleToggleSelected(value: string) {
     if (selected.includes(value)) {
       return setSelected((state: any[]) => state.filter((item) => item !== value));
