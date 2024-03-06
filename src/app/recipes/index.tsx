@@ -37,7 +37,7 @@ export default function Recipes() {
       <View style={styles.ingredients}>
         <Ingredients ingredients={ingredients} />
       </View>
-      
+
       <FlatList
         data={recipes}
         keyExtractor={(item) => item.id}
