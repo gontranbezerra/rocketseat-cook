@@ -6,10 +6,10 @@ import { services } from '@/services';
 type IngredientsProps = {
   selected?: string[];
   setSelected?: React.Dispatch<React.SetStateAction<string[]>>;
-  igredients: IngredientResponse[];
+  ingredients: IngredientResponse[];
 };
 
-export function Ingredients({ selected, setSelected, igredients }: Readonly<IngredientsProps>) {
+export function Ingredients({ selected, setSelected, ingredients }: Readonly<IngredientsProps>) {
   function handleToggleSelected(value: string) {
     if (selected?.includes(value) && setSelected) {
       return setSelected((state: any[]) => state.filter((item) => item !== value));
@@ -19,9 +19,13 @@ export function Ingredients({ selected, setSelected, igredients }: Readonly<Ingr
   }
 
   return (
-    <ScrollView contentContainerStyle={styles.container} showsVerticalScrollIndicator={false}>
+    <ScrollView
+      style={styles.container}
+      contentContainerStyle={styles.ingredientsContent}
+      showsVerticalScrollIndicator={false}
+    >
       {/* {Array.from({ length: 100 }).map((item, index) => ( */}
-      {igredients.map((item) => (
+      {ingredients.map((item) => (
         <Ingredient
           key={item.id}
           name={item.name}

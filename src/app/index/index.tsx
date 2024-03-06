@@ -34,7 +34,7 @@ export default function Index() {
       </Text>
       <Text style={styles.message}>Descubra receitas baseadas nos produtos que você escolheu</Text>
 
-      <Ingredients selected={selected} setSelected={setSelected} igredients={ingredients} />
+      <Ingredients selected={selected} setSelected={setSelected} ingredients={ingredients} />
 
       {selected.length > 0 && <Selected quantity={selected.length} onClear={handleclearSelected} onSearch={handleSearch} />}
     </View>

@@ -7,7 +7,7 @@ export const styles = StyleSheet.create({
     flex: 1,
   },
   header: {
-    paddingHorizontal: 8,
+    paddingHorizontal: 16,
     paddingTop: 8,
     marginBottom: 8,
   },
@@ -16,7 +16,15 @@ export const styles = StyleSheet.create({
     fontFamily: theme.fonts.family.bold,
     marginTop: 22,
   },
-  recipes: {},
-  recipesContent: {},
-  empty: {},
+  ingredients: {
+    height: 58,
+    maxHeight: 58,
+  },
+  recipes: { padding: 32 },
+  recipesContent: { gap: 16 },
+  empty: {
+    fontSize: theme.fonts.size.body.md,
+    fontFamily: theme.fonts.family.regular,
+    color: theme.colors.gray_400,
+  },
 });

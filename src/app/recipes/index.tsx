@@ -34,8 +34,10 @@ export default function Recipes() {
         <Text style={styles.title}>Ingredientes</Text>
       </View>
 
-      <Ingredients igredients={ingredients} />
-
+      <View style={styles.ingredients}>
+        <Ingredients ingredients={ingredients} />
+      </View>
+      
       <FlatList
         data={recipes}
         keyExtractor={(item) => item.id}
@@ -47,6 +49,7 @@ export default function Recipes() {
             //   minutes: item.minutes,
             // }}
             recipe={item}
+            onPress={() => router.navigate('/recipe/' + item.id)}
           />
         )}
         style={styles.recipes}
@@ -54,11 +57,7 @@ export default function Recipes() {
         showsVerticalScrollIndicator={false}
         columnWrapperStyle={{ gap: 16 }}
         numColumns={2}
-        // ListEmptyComponent={() => (
-        //   <Text style={styles.empty}>
-        //     Nenhuma receita encontrada. Escolha outros ingredientes.
-        //   </Text>
-        // )}
+        ListEmptyComponent={() => <Text style={styles.empty}>Nenhuma receita encontrada. Escolha outros ingredientes.</Text>}
       />
     </View>
   );
