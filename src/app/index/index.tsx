@@ -1,12 +1,14 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { View, Text, Alert } from 'react-native';
 import { styles } from './styles';
 import { Ingredients } from '@/components/ingredients';
 import { Selected } from '@/components/selected';
 import { router } from 'expo-router';
+import { services } from '@/services';
 
 export default function Index() {
   const [selected, setSelected] = useState<string[]>([]);
+  const [ingredients, setIngredients] = useState<IngredientsResponse[]>([]);
 
   function handleclearSelected() {
     Alert.alert('Limpar', 'Deseja limpar tudo?', [
@@ -20,6 +22,10 @@ export default function Index() {
     router.navigate({ pathname: '/recipes/', params: { selected: selected } });
   }
 
+  useEffect(() => {
+    services.ingredients.findAll().then(setIngredients)
+  }, []);
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>
@@ -28,7 +34,7 @@ export default function Index() {
       </Text>
       <Text style={styles.message}>Descubra receitas baseadas nos produtos que você escolheu</Text>
 
-      <Ingredients selected={selected} setSelected={setSelected} />
+      <Ingredients selected={selected} setSelected={setSelected} igredients={ingredients} />
 
       {selected.length > 0 && <Selected quantity={selected.length} onClear={handleclearSelected} onSearch={handleSearch} />}
     </View>
