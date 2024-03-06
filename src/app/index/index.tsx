@@ -8,7 +8,7 @@ import { services } from '@/services';
 
 export default function Index() {
   const [selected, setSelected] = useState<string[]>([]);
-  const [ingredients, setIngredients] = useState<IngredientsResponse[]>([]);
+  const [ingredients, setIngredients] = useState<IngredientResponse[]>([]);
 
   function handleclearSelected() {
     Alert.alert('Limpar', 'Deseja limpar tudo?', [
